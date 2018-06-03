@@ -33,7 +33,8 @@ let timer= document.querySelector(".timer");
 for(let i = 0; i< cards.length; i++) {
   const card = document.createElement("li");
   card.classList.add("card");
-  deck.appendChild("card");
+  card.innerHTML= "<i class='" + /* ? */ + "'</i>"
+  deck.appendChild(card);
 };
 
 /*
