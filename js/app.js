@@ -19,7 +19,7 @@
  "fa fa-bomb"
  ];
 
-
+/*Assign main variables */
 const stars= document.querySelector(".stars");
 const moves= document.querySelector(".moves");
 const deck= document.querySelector(".deck");
@@ -29,18 +29,23 @@ const restart= document.querySelector(".restart");
 let timer= document.querySelector(".timer");
 /*
  * Display the cards on the page
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
 */
 for(let i = 0; i< cards.length; i++) {
   const card = document.createElement("li");
   card.classList.add("card");
-  card.innerHTML= "<i class='" + /* ? */ + "'</i>"
+  card.innerHTML= "<i class='" + cards[i] + "'</i>";
   deck.appendChild(card);
-};
 
+
+card.addEventListener("click", function(){
+  card.classList.add("open" , "show")
+});
+};
 /*
  *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
