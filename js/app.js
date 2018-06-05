@@ -19,7 +19,7 @@
  "fa fa-bomb"
  ];
 
-/*Assign main variables */
+/*Assign main variables in global scope*/
 const stars= document.querySelector(".stars");
 const moves= document.querySelector(".moves");
 const deck= document.querySelector(".deck");
@@ -32,6 +32,8 @@ let timer= document.querySelector(".timer");
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
 */
+var flippedCards=[];
+
 for(let i = 0; i< cards.length; i++) {
   const card = document.createElement("li");
   card.classList.add("card");
@@ -40,9 +42,28 @@ for(let i = 0; i< cards.length; i++) {
 
 
 card.addEventListener("click", function(){
-  card.classList.add("open" , "show")
+  card.classList.add("open" , "show");
+  flippedCards.push(this);
+
+  if(flippedCards[0].innerHTML === flippedCards[1].innerHTML){
+    flippedCards[0].classList.add("match");
+    flippedCards[0].classList.remove("open" , "show");
+    flippedCards[1].classList.add("match");
+    flippedCards[1].classList.remove("open" , "show");
+    flippedCards.pop();
+    flippedCards.pop();
+  }else{
+    flippedCards[0].classList.remove("open" , "show");
+    flippedCards[1].classList.remove("open" , "show");
+    flippedCards.pop();
+    flippedCards.pop();
+  };
 });
 };
+
+
+
+
 /*
  *   - shuffle the list of cards using the provided "shuffle" method below
 
