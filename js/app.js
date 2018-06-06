@@ -64,7 +64,7 @@ card.addEventListener("click", function(){
     flippedCards.pop();
     matchedCards.pop();
     matchedCards.pop();
-  },500);
+  },300);
   };
 });
 };
@@ -91,13 +91,12 @@ function shuffle(array) {
 
     return array;
 }
-/*
-modal.addEventListener(
+
 if (matchedCards.length === cards.length){
     modal.display = "block";
-});
+};
 
-*/
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
