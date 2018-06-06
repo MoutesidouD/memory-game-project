@@ -32,7 +32,8 @@ let timer= document.querySelector(".timer");
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
 */
-var flippedCards=[];
+let flippedCards=[];  /*temporary container for checking matches*/
+let matchedCards=[];  /* needed for comparison with cards to pop modal*/
 
 for(let i = 0; i< cards.length; i++) {
   const card = document.createElement("li");
@@ -44,19 +45,26 @@ for(let i = 0; i< cards.length; i++) {
 card.addEventListener("click", function(){
   card.classList.add("open" , "show");
   flippedCards.push(this);
+  matchedCards.push(this);
 
   if(flippedCards[0].innerHTML === flippedCards[1].innerHTML){
+    setTimeout( function (){
     flippedCards[0].classList.add("match");
     flippedCards[0].classList.remove("open" , "show");
     flippedCards[1].classList.add("match");
     flippedCards[1].classList.remove("open" , "show");
     flippedCards.pop();
     flippedCards.pop();
+  },300);
   }else{
+    setTimeout( function (){
     flippedCards[0].classList.remove("open" , "show");
     flippedCards[1].classList.remove("open" , "show");
     flippedCards.pop();
     flippedCards.pop();
+    matchedCards.pop();
+    matchedCards.pop();
+  },500);
   };
 });
 };
@@ -83,6 +91,13 @@ function shuffle(array) {
 
     return array;
 }
+/*
+modal.addEventListener(
+if (matchedCards.length === cards.length){
+    modal.display = "block";
+});
+
+*/
 
 /*
  * set up the event listener for a card. If a card is clicked:
