@@ -19,9 +19,13 @@
  "fa fa-bomb"
  ];
 
+ /*const starIcons = [
+   "fa fa-star", "fa fa-star" , "fa fa-star"
+ ];*/
+
 /*Assign main variables in global scope*/
 const stars= document.querySelector(".stars");
-const moves= document.querySelector(".moves");
+
 const deck= document.querySelector(".deck");
 const modal= document.querySelector(".modal");
 const modalMessage= document.querySelector(".modalMessage");
@@ -35,12 +39,13 @@ let timer= document.querySelector(".timer");
 let flippedCards=[];  /*temporary container for checking matches*/
 let matchedCards=[];  /* needed for comparison with cards to pop modal*/
 
+let moves=0;
 for(let i = 0; i< cards.length; i++) {
   const card = document.createElement("li");
   card.classList.add("card");
   card.innerHTML= "<i class='" + cards[i] + "'</i>";
   deck.appendChild(card);
-
+ /*shuffle(cards);*/ /*gives multiple same icons!!!*/
 
 card.addEventListener("click", function(){
   card.classList.add("open" , "show");
@@ -55,6 +60,10 @@ card.addEventListener("click", function(){
     flippedCards[1].classList.remove("open" , "show");
     flippedCards.pop();
     flippedCards.pop();
+    moves++;
+    moves++;
+  myModal();
+
   },300);
   }else{
     setTimeout( function (){
@@ -64,11 +73,38 @@ card.addEventListener("click", function(){
     flippedCards.pop();
     matchedCards.pop();
     matchedCards.pop();
-  },300);
-  };
-});
-};
+    moves++;
+    moves++;
+  myModal();
 
+  },300);
+  }
+});
+}
+
+
+/*Defines stars achieved*/
+
+/*for(let i = 0; i< starIcons.length; i++) {
+  let star = document.createElement("li");
+  star.innerHTML= "<i class='" + starIcons[i] + "'</i>";
+  stars.appendChild(star);
+
+/*NEED TO BE FIXED
+if (moves >= 26 && moves <= 35){
+  starIcons.pop();
+}else if(moves > 35){
+  starIcons.pop();
+  starIcons.pop();
+}
+};*/
+
+/*pops-up the modal*/
+function myModal(){
+  if (matchedCards.length === 16){
+    modal.style.display='block';
+  };
+}
 
 
 
@@ -92,9 +128,7 @@ function shuffle(array) {
     return array;
 }
 
-if (matchedCards.length === cards.length){
-    modal.display = "block";
-};
+
 
 
 

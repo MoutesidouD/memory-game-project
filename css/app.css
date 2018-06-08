@@ -130,6 +130,7 @@ h1 {
     animation-name: fadeIn;
     animation-duration: 0.4s
 }
+
 .modal-content {
     position: fixed;
     bottom: 0;
