@@ -28,15 +28,23 @@ const modal= document.querySelector(".modal");
 const modalMessage= document.querySelector(".modalMessage");
 const restart= document.querySelector(".restart");
 let timer= document.querySelector(".timer");
-
+const playButton= document.querySelector(".button");
 
 /*
  * Display the cards on the page
  * and set eventListener to flip them
 */
+document.onload= gameInit(); //Start game when page loaded
+
+restart.addEventListener("click",function (){ //EventListener to reload page when restart is hit
+  location.reload();
+});
 
 
-let moves=0;  //storing moves
+let moves=0;
+function gameInit(){
+  //storing moves
+shuffle(cards);
 for(let i = 0; i< cards.length; i++) { //loop through cards array and display them
   const card = document.createElement("li");
   card.classList.add("card");
@@ -52,6 +60,7 @@ for(let i = 0; i< cards.length; i++) { //loop through cards array and display th
     checkingMatches(); //Function for checking matches
     timerOn();  //Function to start timer
   });
+}
 }
 
 
@@ -136,3 +145,6 @@ function timerOn() {
     },1000);
   }
 }
+playButton.addEventListener("click", function(){ //eventListener to restart game from modal button
+  location.reload();
+})
