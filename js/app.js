@@ -119,6 +119,7 @@ function starRate() { //Function for stars rating
 }
 
 
+
 var second = 1, minute = 0; //Function to start timer
 function timerOn() {
   if (moves===1){
@@ -129,7 +130,7 @@ function timerOn() {
         minute++;
         second=0;
       }
-      if (matchedCards===16){  //stopping time NOT working
+      else if (matchedCards===16){  //stopping time NOT working
         clearInterval();
       }
     },1000);
