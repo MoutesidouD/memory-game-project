@@ -1,6 +1,4 @@
-/*
- * Create a list that holds all of your cards
- */const cards = [
+const cards = [  //An array which holds all cards
  "fa fa-diamond",
  "fa fa-diamond",
  "fa fa-paper-plane-o",
@@ -19,102 +17,57 @@
  "fa fa-bomb"
  ];
 
- /*const starIcons = [
-   "fa fa-star", "fa fa-star" , "fa fa-star"
- ];*/
+ let flippedCards=[];  //Temporary container for checking matches
+ let matchedCards=[];  // Array needed for comparison with cards to pop modal
 
-/*Assign main variables in global scope*/
-const stars= document.querySelector(".stars");
-
+//Assign main variables in global scope
+const stars= document.querySelector(".stars li");
+let counter= document.querySelector(".moves");
 const deck= document.querySelector(".deck");
 const modal= document.querySelector(".modal");
 const modalMessage= document.querySelector(".modalMessage");
 const restart= document.querySelector(".restart");
 let timer= document.querySelector(".timer");
+
+
 /*
  * Display the cards on the page
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
+ * and set eventListener to flip them
 */
-let flippedCards=[];  /*temporary container for checking matches*/
-let matchedCards=[];  /* needed for comparison with cards to pop modal*/
 
-let moves=0;
-for(let i = 0; i< cards.length; i++) {
+
+let moves=0;  //storing moves
+for(let i = 0; i< cards.length; i++) { //loop through cards array and display them
   const card = document.createElement("li");
   card.classList.add("card");
   card.innerHTML= "<i class='" + cards[i] + "'</i>";
   deck.appendChild(card);
- /*shuffle(cards);*/ /*gives multiple same icons!!!*/
 
-card.addEventListener("click", function(){
-  card.classList.add("open" , "show");
-  flippedCards.push(this);
-  matchedCards.push(this);
-
-  if(flippedCards[0].innerHTML === flippedCards[1].innerHTML){
-    setTimeout( function (){
-    flippedCards[0].classList.add("match");
-    flippedCards[0].classList.remove("open" , "show");
-    flippedCards[1].classList.add("match");
-    flippedCards[1].classList.remove("open" , "show");
-    flippedCards.pop();
-    flippedCards.pop();
+  card.addEventListener("click", function clickCard(){ //eventListener for clicking cards
+    card.classList.add("open" , "show" ,"disabled");
+    flippedCards.push(this);
     moves++;
-    moves++;
-  myModal();
-
-  },300);
-  }else{
-    setTimeout( function (){
-    flippedCards[0].classList.remove("open" , "show");
-    flippedCards[1].classList.remove("open" , "show");
-    flippedCards.pop();
-    flippedCards.pop();
-    matchedCards.pop();
-    matchedCards.pop();
-    moves++;
-    moves++;
-  myModal();
-
-  },300);
-  }
-});
+    counter.innerText=moves; //display moves counter
+    starRate();  //Function for stars rating
+    checkingMatches(); //Function for checking matches
+    timerOn();  //Function to start timer
+  });
 }
 
 
-/*Defines stars achieved*/
-
-/*for(let i = 0; i< starIcons.length; i++) {
-  let star = document.createElement("li");
-  star.innerHTML= "<i class='" + starIcons[i] + "'</i>";
-  stars.appendChild(star);
-
-/*NEED TO BE FIXED
-if (moves >= 26 && moves <= 35){
-  starIcons.pop();
-}else if(moves > 35){
-  starIcons.pop();
-  starIcons.pop();
-}
-};*/
-
-/*pops-up the modal*/
-function myModal(){
+function myModal(){ //Function to pop-up modal
   if (matchedCards.length === 16){
-    modal.style.display='block';
-  };
+    modal.style.display="block";
+  }
 }
 
+const span = document.querySelector(".close"); //Closing modal
+span.onclick = function() {
+  modal.style.display = "none";
+};
 
 
-/*
- *   - shuffle the list of cards using the provided "shuffle" method below
-
- */
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
+function shuffle(array) { //Function to suffle array of cards
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
@@ -129,16 +82,56 @@ function shuffle(array) {
 }
 
 
+function checkingMatches() { //Checking for matches
+  if(flippedCards.length===2){
+    if(flippedCards[0].innerHTML === flippedCards[1].innerHTML){ //When match
+      setTimeout(function() {
+        flippedCards[0].classList.add("match");
+        flippedCards[0].classList.remove("open" , "show");
+        matchedCards.push(this);
+        flippedCards[1].classList.add("match");
+        flippedCards[1].classList.remove("open" , "show");
+        matchedCards.push(this);
+        flippedCards.pop();
+        flippedCards.pop();
+        myModal();
+      },300);
+    }else{
+      setTimeout(function() { //When don't match
+        flippedCards[0].classList.remove("open" , "show" , "disabled");
+        flippedCards[1].classList.remove("open" , "show" , "disabled");
+        flippedCards.pop();
+        flippedCards.pop();
+        myModal();
+      },300);
+    }
+  }
+}
 
 
+function starRate() { //Function for stars rating
+  if (moves >= 25 && moves <= 31){
+    stars.remove();
+  }else if(moves >32) {  //else NOT working
+    stars.remove();
+    stars.remove();
+  }
+}
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+
+var second = 1, minute = 0; //Function to start timer
+function timerOn() {
+  if (moves===1){
+    setInterval(function(){
+      timer.innerHTML ="Time: "+ minute+"mins "+second+"secs";
+      second++;
+      if(second === 60){
+        minute++;
+        second=0;
+      }
+      if (matchedCards===16){  //stopping time NOT working
+        clearInterval();
+      }
+    },1000);
+  }
+}
