@@ -21,15 +21,15 @@ const cards = [  //An array which holds all cards
  let matchedCards=[];  // Array needed for comparison with cards to pop modal
 
 //Assign main variables in global scope
-const stars= document.querySelector(".stars li");
+const stars= document.querySelector(".stars");
 let counter= document.querySelector(".moves");
 const deck= document.querySelector(".deck");
 const modal= document.querySelector(".modal");
-const modalMessage= document.querySelector(".modalMessage");
 const restart= document.querySelector(".restart");
 let timer= document.querySelector(".timer");
 const playButton= document.querySelector(".button");
-
+let finishTime=document.querySelector(".finish-time");
+let modalStars=document.querySelector(".modalStars");
 /*
  * Display the cards on the page
  * and set eventListener to flip them
@@ -67,6 +67,7 @@ for(let i = 0; i< cards.length; i++) { //loop through cards array and display th
 function myModal(){ //Function to pop-up modal
   if (matchedCards.length === 16){
     modal.style.display="block";
+finishTime.innerText=timer.innerHTML;
   }
 }
 
@@ -119,11 +120,12 @@ function checkingMatches() { //Checking for matches
 
 
 function starRate() { //Function for stars rating
-  if (moves >= 25 && moves <= 31){
-    stars.remove();
-  }else if(moves >32) {  //else NOT working
-    stars.remove();
-    stars.remove();
+  if (moves === 25 ){
+    stars.removeChild(stars.childNodes[1]);
+    modalStars.removeChild(modalStars.childNodes[1]);
+  }else if(moves === 32) {
+    stars.removeChild(stars.childNodes[2]);
+    modalStars.removeChild(modalStars.childNodes[2]);
   }
 }
 
@@ -133,7 +135,7 @@ var second = 1, minute = 0; //Function to start timer
 function timerOn() {
   if (moves===1){
     setInterval(function(){
-      timer.innerHTML ="Time: "+ minute+"mins "+second+"secs";
+      timer.innerHTML = minute+"mins "+second+"secs";
       second++;
       if(second === 60){
         minute++;
@@ -147,4 +149,4 @@ function timerOn() {
 }
 playButton.addEventListener("click", function(){ //eventListener to restart game from modal button
   location.reload();
-})
+});
