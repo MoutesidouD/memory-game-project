@@ -19,7 +19,7 @@ const cards = [  //An array which holds all cards
 
  let flippedCards=[];  //Temporary container for checking matches
  let matchedCards=[];  // Array needed for comparison with cards to pop modal
-
+let allClickedCards=[];
 //Assign main variables in global scope
 const stars= document.querySelector(".stars");
 let counter= document.querySelector(".moves");
@@ -54,10 +54,10 @@ for(let i = 0; i< cards.length; i++) { //loop through cards array and display th
   card.addEventListener("click", function clickCard(){ //eventListener for clicking cards
     card.classList.add("open" , "show" ,"disabled");
     flippedCards.push(this);
+    allClickedCards.push(this);
     if(flippedCards.length===2){
       moves+=1;
     }
-
     counter.innerText=moves; //display moves counter
     starRate();  //Function for stars rating
     checkingMatches(); //Function for checking matches
@@ -134,13 +134,12 @@ function starRate() { //Function for stars rating
 }
 
 //Starts timer
-
 var second = 0;
 var minute = 0;
   var timeOn =setInterval(clock,1000);
 function clock(){
-if(moves !== 0){
-      timer.innerHTML = minute+"mins "+second+"secs";
+if(allClickedCards.length >= 1){
+      timer.innerHTML = "Time: "+ minute+"mins "+second+"secs";
       second++;
       if(second === 60){
         minute++;
@@ -148,6 +147,7 @@ if(moves !== 0){
       }
     }
   }
+
 
 //Stops timer
 
