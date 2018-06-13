@@ -1,20 +1,13 @@
-# Memory Game Project
+# Memory Game
 
-## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+## Description
+
+This is a memory game I created, using a starter project provided by Udacity.
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
-
-## Contributing
-
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+The game is a classic timed memory game.
+There are 8 pairs of cards which symbols are hidden. The player clicks one card to reveal its symbol and search for its pair among all cards.
+When they found a match, the matching cards remain open. The player continues until find all pairs of cards.
+The game is over when all matches have been made, and a modal pops-up to congratulate the player, provided them info about their time record and star rating.
