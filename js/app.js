@@ -40,8 +40,8 @@ restart.addEventListener("click",function (){ //EventListener to reload page whe
   location.reload();
 });
 
-
 let moves=0;
+
 function gameInit(){
   //storing moves
 shuffle(cards);
@@ -54,7 +54,10 @@ for(let i = 0; i< cards.length; i++) { //loop through cards array and display th
   card.addEventListener("click", function clickCard(){ //eventListener for clicking cards
     card.classList.add("open" , "show" ,"disabled");
     flippedCards.push(this);
-    moves++;
+    if(flippedCards.length===2){
+      moves+=1;
+    }
+
     counter.innerText=moves; //display moves counter
     starRate();  //Function for stars rating
     checkingMatches(); //Function for checking matches
@@ -121,10 +124,10 @@ function checkingMatches() { //Checking for matches
 
 
 function starRate() { //Function for stars rating
-  if (moves === 25 ){
+  if (moves === 15 ){
     stars.removeChild(stars.childNodes[1]);
     modalStars.removeChild(modalStars.childNodes[1]);
-  }else if(moves === 32) {
+  }else if(moves === 20) {
     stars.removeChild(stars.childNodes[2]);
     modalStars.removeChild(modalStars.childNodes[2]);
   }
@@ -132,7 +135,7 @@ function starRate() { //Function for stars rating
 
 //Starts timer
 
-var second = 1;
+var second = 0;
 var minute = 0;
   var timeOn =setInterval(clock,1000);
 function clock(){
