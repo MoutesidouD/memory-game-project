@@ -118,7 +118,9 @@ h1 {
     padding-left: 10px;
 }
 
-/*Styles for modal*/
+/*Styles for modal
+main part from "bottom modal" in
+https://www.w3schools.com/howto/howto_css_modals.asp*/
 
 .modal {
     display: none;

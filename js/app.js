@@ -58,16 +58,17 @@ for(let i = 0; i< cards.length; i++) { //loop through cards array and display th
     counter.innerText=moves; //display moves counter
     starRate();  //Function for stars rating
     checkingMatches(); //Function for checking matches
-    timerOn();  //Function to start timer
   });
 }
 }
+
 
 
 function myModal(){ //Function to pop-up modal
   if (matchedCards.length === 16){
     modal.style.display="block";
 finishTime.innerText=timer.innerHTML;
+clockOff();
   }
 }
 
@@ -129,24 +130,44 @@ function starRate() { //Function for stars rating
   }
 }
 
+//Starts timer
 
-
-var second = 1, minute = 0; //Function to start timer
-function timerOn() {
-  if (moves===1){
-    setInterval(function(){
+var second = 1;
+var minute = 0;
+  var timeOn =setInterval(clock,1000);
+function clock(){
+if(moves !== 0){
       timer.innerHTML = minute+"mins "+second+"secs";
       second++;
       if(second === 60){
         minute++;
         second=0;
       }
-      else if (matchedCards===16){  //stopping time NOT working
+    }
+  }
+
+//Stops timer
+
+function clockOff(){
+
+clearInterval(timeOn);
+
+}
+
+
+
+
+
+
+
+
+
+    /*  else if (matchedCards===16){  //stopping time NOT working
         clearInterval();
       }
     },1000);
   }
-}
+}*/
 playButton.addEventListener("click", function(){ //eventListener to restart game from modal button
   location.reload();
 });
